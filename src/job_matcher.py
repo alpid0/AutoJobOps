@@ -1,70 +1,57 @@
-# AutoJobOps - Job Matching Engine
+```python
+# AutoJobOps - Intelligent Job Matcher
 
-import json
-
-# Your job preferences
-preferences = {
-    "skills": [
-        "linux",
-        "aws",
-        "docker",
-        "kubernetes",
-        "terraform",
-        "python",
-        "jenkins",
-        "github actions"
-    ],
-    "minimum_experience": 2,
-    "target_role": "DevOps Engineer"
-}
-
-# Sample job listings
-jobs = [
-    {
-        "company": "ABC Technologies",
-        "role": "DevOps Engineer",
-        "experience": 3,
-        "skills": ["Linux", "AWS", "Docker", "Jenkins"]
-    },
-    {
-        "company": "XYZ Solutions",
-        "role": "Java Developer",
-        "experience": 4,
-        "skills": ["Java", "Spring Boot"]
-    },
-    {
-        "company": "Cloud Systems",
-        "role": "Cloud Engineer",
-        "experience": 3,
-        "skills": ["AWS", "Linux", "Terraform", "Python"]
-    }
+KEYWORDS = [
+    "devops",
+    "cloud engineer",
+    "linux",
+    "aws",
+    "docker",
+    "kubernetes",
+    "terraform",
+    "jenkins",
+    "github actions",
+    "ci/cd",
+    "sre",
+    "cloud operations"
 ]
 
-def match_jobs():
+def match_jobs(jobs):
 
-    print("\nStarting AutoJobOps Job Matcher\n")
+    matched_jobs = []
+
+    print("\nStarting Intelligent Job Matching...\n")
 
     for job in jobs:
 
-        matching_skills = set(
-            skill.lower() for skill in job["skills"]
-        ) & set(preferences["skills"])
+        title = job.get("jobTitle", "")
+        description = job.get("jobDescription", "")
 
-        match_percentage = (
-            len(matching_skills) /
-            len(preferences["skills"])
-        ) * 100
+        searchable_text = (
+            title + " " + description
+        ).lower()
 
-        if job["experience"] >= preferences["minimum_experience"]:
+        matching_keywords = [
+            keyword for keyword in KEYWORDS
+            if keyword in searchable_text
+        ]
+
+        score = len(matching_keywords)
+
+        if score >= 2:
+
+            matched_jobs.append(job)
 
             print("--------------------------------")
-            print("Company:", job["company"])
-            print("Role:", job["role"])
-            print("Experience:", job["experience"])
-            print("Matching Skills:", matching_skills)
-            print("Match Score:", round(match_percentage, 2), "%")
+            print("Company:", job.get("companyName"))
+            print("Role:", title)
+            print("Location:", job.get("jobGeo"))
+            print("Matching Skills:", matching_keywords)
+            print("Match Score:", score, "/", len(KEYWORDS))
+            print("Job URL:", job.get("url"))
 
-    print("\nJob matching completed!")
+    print("\nTotal jobs received:", len(jobs))
+    print("Relevant jobs found:", len(matched_jobs))
 
-if __name__ == "__main__":
-    match_jobs()
+    return matched_jobs
+```
