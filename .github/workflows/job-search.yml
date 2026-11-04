@@ -20,8 +20,11 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Verify Python
-        run: python --version
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
 
-      - name: Execute Job Matcher
+      - name: Fetch Real Jobs
+        run: python src/job_fetcher.py
+
+      - name: Run Job Matcher
         run: python src/job_matcher.py
