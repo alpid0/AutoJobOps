@@ -1,0 +1,33 @@
+{
+    "target_roles": [
+        "DevOps Engineer",
+        "Cloud Engineer",
+        "Site Reliability Engineer",
+        "SRE",
+        "Linux Administrator",
+        "Cloud Operations Engineer",
+        "Platform Engineer"
+    ],
+
+    "preferred_skills": [
+        "AWS",
+        "Linux",
+        "Docker",
+        "Kubernetes",
+        "Terraform",
+        "Jenkins",
+        "Git",
+        "GitHub Actions",
+        "CI/CD",
+        "Python",
+        "Ansible"
+    ],
+
+    "preferred_locations": [
+        "India",
+        "Remote",
+        "Anywhere"
+    ],
+
+    "minimum_match_score": 2
+}
