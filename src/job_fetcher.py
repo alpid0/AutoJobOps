@@ -1,7 +1,9 @@
+
 import requests
 from job_matcher import match_jobs
 
 API_URL = "https://jobicy.com/api/jobs"
+
 
 def fetch_jobs():
 
@@ -30,7 +32,6 @@ def fetch_jobs():
     for job in jobs:
 
         print("--------------------------------")
-
         print("Company:", job.get("companyName"))
         print("Position:", job.get("jobTitle"))
         print("Location:", job.get("jobGeo"))
@@ -39,8 +40,9 @@ def fetch_jobs():
 
     matched_jobs = match_jobs(jobs)
 
-return matched_jobs
+    return matched_jobs
 
 
 if __name__ == "__main__":
     fetch_jobs()
+
