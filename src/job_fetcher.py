@@ -1,4 +1,5 @@
 import requests
+from job_matcher import match_jobs
 
 API_URL = "https://jobicy.com/api/jobs"
 
@@ -36,7 +37,9 @@ def fetch_jobs():
         print("Salary:", job.get("annualSalaryMin"))
         print("Job URL:", job.get("url"))
 
-    return jobs
+    matched_jobs = match_jobs(jobs)
+
+return matched_jobs
 
 
 if __name__ == "__main__":
