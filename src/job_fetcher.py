@@ -12,7 +12,7 @@ def fetch_jobs():
     print("Connecting to Jobicy API...")
 
     params = {
-        "count": 50,
+        "count": 100,
         "geo": "anywhere",
         "industry": "engineering"
     }
