@@ -1,6 +1,8 @@
 import requests
+
 from job_matcher import match_jobs
 from job_store import save_new_jobs
+
 
 API_URL = "https://jobicy.com/api/jobs"
 
@@ -46,7 +48,7 @@ def fetch_jobs():
         # Match relevant jobs
         matched_jobs = match_jobs(jobs)
 
-        # Remove duplicate jobs and save new jobs
+        # Remove duplicates and save new jobs
         new_jobs = save_new_jobs(matched_jobs)
 
         print("\n========== FINAL RESULTS ==========")
