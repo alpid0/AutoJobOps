@@ -1,7 +1,6 @@
-```yaml
 name: AutoJobOps - Job Search
 
-on:
+'on':
   workflow_dispatch:
 
 jobs:
@@ -23,4 +22,3 @@ jobs:
           echo "Starting automated job search..."
           python --version
           echo "Job search workflow executed successfully!"
-```
