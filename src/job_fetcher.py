@@ -15,32 +15,46 @@ def fetch_jobs():
         "industry": "engineering"
     }
 
-    response = requests.get(
-        API_URL,
-        params=params,
-        timeout=30
-    )
+    try:
+        response = requests.get(
+            API_URL,
+            params=params,
+            timeout=30
+        )
 
-    response.raise_for_status()
+        response.raise_for_status()
 
-    data = response.json()
+        data = response.json()
 
-    jobs = data.get("jobs", [])
+        jobs = data.get("jobs", [])
 
-    print(f"\nTotal jobs fetched: {len(jobs)}\n")
+        print(f"\nTotal jobs fetched: {len(jobs)}\n")
 
-    for job in jobs:
+        if not jobs:
+            print("No jobs found.")
+            return []
 
-        print("--------------------------------")
-        print("Company:", job.get("companyName"))
-        print("Position:", job.get("jobTitle"))
-        print("Location:", job.get("jobGeo"))
-        print("Salary:", job.get("annualSalaryMin"))
-        print("Job URL:", job.get("url"))
+        for job in jobs:
+            print("--------------------------------")
+            print("Company:", job.get("companyName"))
+            print("Position:", job.get("jobTitle"))
+            print("Location:", job.get("jobGeo"))
+            print("Salary:", job.get("annualSalaryMin"))
+            print("Job URL:", job.get("url"))
 
-    matched_jobs = match_jobs(jobs)
+        matched_jobs = match_jobs(jobs)
 
-    return matched_jobs
+        print("\nJob fetching completed successfully.")
+
+        return matched_jobs
+
+    except requests.exceptions.RequestException as error:
+        print("API request failed:", error)
+        raise
+
+    except (ValueError, AttributeError) as error:
+        print("Invalid API response:", error)
+        raise
 
 
 if __name__ == "__main__":
