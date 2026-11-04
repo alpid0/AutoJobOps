@@ -1,4 +1,4 @@
-```python
+
 # AutoJobOps - Intelligent Job Matcher
 
 KEYWORDS = [
@@ -54,4 +54,4 @@ def match_jobs(jobs):
     print("Relevant jobs found:", len(matched_jobs))
 
     return matched_jobs
-```
+
