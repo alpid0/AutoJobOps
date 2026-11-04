@@ -1,8 +1,11 @@
-
 name: AutoJobOps - Job Search
 
-on:
+'on':
   workflow_dispatch:
+
+  push:
+    branches:
+      - main
 
 jobs:
   job-search:
@@ -17,10 +20,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run Job Search
-        run: |
-          echo "Welcome to AutoJobOps"
-          echo "Starting automated job search..."
-          python --version
-          echo "Job search workflow executed successfully!"
+      - name: Verify Python
+        run: python --version
 
+      - name: Execute Job Matcher
+        run: python src/job_matcher.py
