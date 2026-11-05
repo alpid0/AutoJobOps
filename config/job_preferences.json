@@ -1,33 +1,47 @@
 {
-    "target_roles": [
-        "DevOps Engineer",
-        "Cloud Engineer",
-        "Site Reliability Engineer",
-        "SRE",
-        "Linux Administrator",
-        "Cloud Operations Engineer",
-        "Platform Engineer"
-    ],
-
-    "preferred_skills": [
-        "AWS",
-        "Linux",
-        "Docker",
-        "Kubernetes",
-        "Terraform",
-        "Jenkins",
-        "Git",
-        "GitHub Actions",
-        "CI/CD",
-        "Python",
-        "Ansible"
-    ],
-
-    "preferred_locations": [
-        "India",
-        "Remote",
-        "Anywhere"
-    ],
-
-    "minimum_match_score": 2
+  "target_roles": [
+    "DevOps Engineer",
+    "Cloud DevOps Engineer",
+    "AWS DevOps Engineer",
+    "Cloud Engineer",
+    "AWS SysOps Engineer",
+    "Cloud Operations Engineer",
+    "Linux Engineer",
+    "Linux Administrator",
+    "Platform Engineer",
+    "Site Reliability Engineer",
+    "SRE"
+  ],
+  "preferred_skills": [
+    "AWS",
+    "Linux",
+    "RHEL",
+    "Docker",
+    "Kubernetes",
+    "Terraform",
+    "Git",
+    "GitHub Actions",
+    "CI/CD",
+    "Python",
+    "Bash",
+    "Shell Scripting",
+    "Ansible",
+    "CloudWatch",
+    "JFrog Artifactory",
+    "Jenkins",
+    "EC2",
+    "VPC",
+    "IAM",
+    "AWS Systems Manager"
+  ],
+  "preferred_locations": [
+    "Indore",
+    "Remote",
+    "India",
+    "Anywhere"
+  ],
+  "minimum_match_score": 3,
+  "minimum_experience_years": 3,
+  "target_experience_years": 4.5,
+  "minimum_salary_lpa": 12
 }
