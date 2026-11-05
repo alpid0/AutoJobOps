@@ -2,87 +2,71 @@ import json
 from pathlib import Path
 
 
-# Load job preferences
-CONFIG_FILE = Path("config/job_preferences.json")
+CONFIG_PATH = Path("config/job_preferences.json")
 
 
 def load_preferences():
-
-    with open(CONFIG_FILE, "r") as file:
+    with open(CONFIG_PATH, "r", encoding="utf-8") as file:
         return json.load(file)
 
 
-def match_jobs(jobs):
+def normalize(text):
+    return str(text or "").lower().strip()
 
+
+def match_job(job):
     preferences = load_preferences()
 
+    title = normalize(job.get("title") or job.get("jobTitle"))
+    location = normalize(job.get("location") or job.get("jobGeo"))
+    description = normalize(
+        job.get("description") or job.get("jobDescription")
+    )
+
     target_roles = [
-        role.lower()
+        normalize(role)
         for role in preferences["target_roles"]
     ]
 
     preferred_skills = [
-        skill.lower()
+        normalize(skill)
         for skill in preferences["preferred_skills"]
     ]
 
     preferred_locations = [
-        location.lower()
-        for location in preferences["preferred_locations"]
+        normalize(loc)
+        for loc in preferences["preferred_locations"]
     ]
 
-    minimum_score = preferences["minimum_match_score"]
+    role_match = any(role in title for role in target_roles)
 
-    matched_jobs = []
+    location_match = any(
+        loc in location for loc in preferred_locations
+    )
 
-    print("\n========== INTELLIGENT JOB MATCHING ==========\n")
+    combined_text = f"{title} {description}"
 
-    for job in jobs:
+    matched_skills = [
+        skill for skill in preferred_skills
+        if skill in combined_text
+    ]
 
-        title = job.get("jobTitle", "")
-        description = job.get("jobDescription", "")
-        location = job.get("jobGeo", "")
+    score = len(matched_skills)
 
-        searchable_text = (
-            title + " " + description
-        ).lower()
+    minimum_score = preferences.get("minimum_match_score", 3)
 
-        # Check whether job title matches target roles
-        role_match = any(
-            role in title.lower()
-            for role in target_roles
-        )
+    is_relevant = (
+        role_match
+        and location_match
+        and score >= minimum_score
+    )
 
-        # Check matching technical skills
-        matching_skills = [
-            skill
-            for skill in preferred_skills
-            if skill in searchable_text
-        ]
+    job["match_score"] = score
+    job["matched_skills"] = matched_skills
+    job["is_relevant"] = is_relevant
 
-        score = len(matching_skills)
+    return job
 
-        # Check preferred location
-        location_match = any(
-            preferred_location in location.lower()
-            for preferred_location in preferred_locations
-        )
 
-        # Accept only relevant roles with enough matching skills
-        if role_match and location_match and score >= minimum_score:
-
-            matched_jobs.append(job)
-
-            print("--------------------------------")
-            print("Company:", job.get("companyName"))
-            print("Role:", title)
-            print("Location:", location)
-            print("Matching Skills:", matching_skills)
-            print("Match Score:", score)
-            print("Job URL:", job.get("url"))
-
-    print("\n========== MATCHING SUMMARY ==========")
-    print("Total jobs received:", len(jobs))
-    print("Relevant jobs found:", len(matched_jobs))
-
-    return matched_jobs
+def filter_jobs(jobs):
+    return [match_job(job) for job in jobs]
