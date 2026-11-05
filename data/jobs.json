@@ -166,5 +166,25 @@
             "python"
         ],
         "is_relevant": true
+    },
+    {
+        "title": "DevOps",
+        "company": "Hivex",
+        "location": "Remote Worldwide",
+        "description": "<p>We are seeking an experienced <strong>Senior DevOps Engineer.</strong> You will play a critical role in designing, implementing, and maintaining our DevOps infrastructure. This position requires a strategic thinker with deep technical expertise, strong leadership skills, and a commitment to fostering a collaborative and efficient development environment. </p><h3><strong>Requirements:</strong></h3><ul>\n<li><p>4+ years of experience working as a DevOps Engineer</p></li>\n<li><p>Excellent experience with AWS, CI/CD pipelines and IaaC tools (Terraform)</p></li>\n<li><p>Good experience with Docker and container orchestration with Kubernetes</p></li>\n<li><p>Experienced with modern monitoring tools like Prometheus, Grafana, and Elasticsearch</p></li>\n<li><p>You have a curiosity about how things work and love to share that knowledge with others</p></li>\n<li><p>Passion for solving challenging problems and iterating quickly</p></li>\n<li><p>You are directly involved in building and testing deployment pipelines, automated provisioning infrastructure, and infrastructure support services together with your colleagues</p></li>\n<li><p>You are hands-on and passionate about building secure, reliable, and scalable infrastructure and know-how to communicate effectively within your team</p></li>\n</ul><h3><strong>Responsibilities:</strong></h3><ul>\n<li><p>Use your knowledge of technology and operational best practices to drive the design, development, and implementation of cloud infrastructure that enables highly available, scalable &amp; reliable customer experiences</p></li>\n<li><p>Develop the monitoring architecture and implement monitoring systems, dashboards, escalations, and alerts</p></li>\n<li><p>Manage AWS infrastructure using AWS well-architected framework principles</p></li>\n<li><p>Mentor less experienced members of the team</p></li>\n<li><p>Improve the processes that software engineers use to build and deploy their software in production</p></li>\n<li><p>Implement and support CI/CD process and tools</p></li>\n<li><p>Engage with software development, QA, and project management teams to prepare for customization or enhancements required to support frequent cloud releases</p></li>\n<li><h3>Migrate legacy services to AWS</h3></li>\n<li><p>Develop cloud and private cloud infrastructure</p></li>\n</ul><h3>What we offer:</h3><ul>\n<li><p>Remote job with the freedom to work from anywhere in the world.</p></li>\n<li><p>Flexible work schedule tailored to your life and work needs.</p></li>\n<li><h3>Competitive and timely salary.</h3></li>\n<li><p>Opportunities for professional growth and development.</p></li>\n<li><p>The chance to gain experience in various fields and participate in exciting projects.</p></li>\n<li>Your ideas and initiatives are always welcome and valued.</li>\n</ul><p>Originally posted on <a href=\"https://himalayas.app\">Himalayas</a></p>",
+        "url": "https://himalayas.app/companies/hivex/jobs/devops-148033620?utm_source=api",
+        "source": "Himalayas",
+        "salary_min": null,
+        "salary_max": null,
+        "match_score": 9,
+        "matched_skill_groups": [
+            "cloud",
+            "containers",
+            "infrastructure",
+            "cicd",
+            "monitoring"
+        ],
+        "experience_required": 4.0,
+        "is_relevant": true
     }
 ]
