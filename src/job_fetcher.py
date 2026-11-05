@@ -2,14 +2,14 @@ import requests
 
 from job_matcher import match_jobs
 from job_store import save_new_jobs
+from himalayas_fetcher import fetch_himalayas_jobs
 
 
-API_URL = "https://jobicy.com/api/jobs"
+JOBICY_API_URL = "https://jobicy.com/api/jobs"
 
 
-def fetch_jobs():
-
-    print("Connecting to Jobicy API...")
+def fetch_jobicy_jobs():
+    print("\nConnecting to Jobicy API...")
 
     params = {
         "count": 100,
@@ -17,57 +17,75 @@ def fetch_jobs():
         "industry": "engineering"
     }
 
+    response = requests.get(
+        JOBICY_API_URL,
+        params=params,
+        timeout=30
+    )
+
+    response.raise_for_status()
+
+    data = response.json()
+    jobs = data.get("jobs", [])
+
+    print("Jobicy jobs fetched:", len(jobs))
+
+    return jobs
+
+
+def fetch_all_jobs():
+    all_jobs = []
+
+    # Source 1: Jobicy
     try:
-        response = requests.get(
-            API_URL,
-            params=params,
-            timeout=30
-        )
+        jobicy_jobs = fetch_jobicy_jobs()
+        all_jobs.extend(jobicy_jobs)
 
-        response.raise_for_status()
+    except Exception as error:
+        print("Jobicy fetch failed:", error)
 
-        data = response.json()
+    # Source 2: Himalayas
+    try:
+        himalayas_jobs = fetch_himalayas_jobs()
+        all_jobs.extend(himalayas_jobs)
 
-        jobs = data.get("jobs", [])
+    except Exception as error:
+        print("Himalayas fetch failed:", error)
 
-        print(f"\nTotal jobs fetched: {len(jobs)}\n")
+    print("\n========== FETCH SUMMARY ==========")
+    print("Total jobs from all sources:", len(all_jobs))
 
-        if not jobs:
-            print("No jobs found.")
-            return []
+    return all_jobs
 
-        for job in jobs:
 
-            print("--------------------------------")
-            print("Company:", job.get("companyName"))
-            print("Position:", job.get("jobTitle"))
-            print("Location:", job.get("jobGeo"))
-            print("Salary:", job.get("annualSalaryMin"))
-            print("Job URL:", job.get("url"))
+def main():
 
-        # Match relevant jobs
-        matched_jobs = match_jobs(jobs)
+    print("Starting AutoJobOps...")
+    
+    # Fetch jobs from all sources
+    jobs = fetch_all_jobs()
 
-        # Remove duplicates and save new jobs
-        new_jobs = save_new_jobs(matched_jobs)
+    if not jobs:
+        print("No jobs fetched from any source.")
+        return
 
-        print("\n========== FINAL RESULTS ==========")
-        print("Total jobs fetched:", len(jobs))
-        print("Relevant jobs:", len(matched_jobs))
-        print("New unique jobs:", len(new_jobs))
+    # Match relevant jobs
+    matched_jobs = match_jobs(jobs)
 
-        return new_jobs
+    print("\n========== MATCHING RESULTS ==========")
+    print("Total fetched:", len(jobs))
+    print("Relevant jobs:", len(matched_jobs))
 
-    except requests.exceptions.RequestException as error:
+    # Store unique jobs
+    new_jobs = save_new_jobs(matched_jobs)
 
-        print("API request failed:", error)
-        raise
+    print("\n========== FINAL RESULTS ==========")
+    print("Total fetched:", len(jobs))
+    print("Relevant jobs:", len(matched_jobs))
+    print("New unique jobs:", len(new_jobs))
 
-    except (ValueError, AttributeError) as error:
-
-        print("Invalid API response:", error)
-        raise
+    print("\nAutoJobOps completed successfully!")
 
 
 if __name__ == "__main__":
-    fetch_jobs()
+    main()
